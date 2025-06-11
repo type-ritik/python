@@ -1,7 +1,7 @@
 class Todo:
     todoList = []
     user = [{"name": "Admin", "email": "admin@admin.com", "password": "1234567890A"}]
-    count = 0
+    _login_count = 0
     login_sets = {"admin@admin.com": 0}
     todo_sets = {}
 
@@ -34,11 +34,9 @@ class Todo:
         _full_name = self.user_response("Enter you Fullname: -> [ ")
         _email = self.user_response("Enter your Email: -> [ ")
         _password = self.user_response("Enter strong Password: -> [ ")
-        self.count += 1
-        self.login_sets[_email] = self.count
+        self._login_count += 1
+        self.login_sets[_email] = self._login_count
         self.user.append({"name": _full_name, "email": _email, "password": _password})
-        print(self.login_sets)
-        print(self.user)
 
     def crud_todo(self):
         user_auth = self.user_response(
