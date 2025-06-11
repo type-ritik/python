@@ -2,7 +2,8 @@ class Todo:
     todoList = []
     user = [{"name": "Admin", "email": "admin@admin.com", "password": "1234567890A"}]
     count = 0
-    search_set = {"admin": 1}
+    login_sets = {"admin@admin.com": 0}
+    todo_sets = {}
 
     def __init__(self, todo):
         self.todoList.append(todo)
@@ -20,20 +21,24 @@ class Todo:
         return input(response)
 
     def login(self):
-        auth_idx = self.search_set[input("Enter your name: -> [ ")]
-        if (self.user[auth_idx]["name"]) and (self.user[auth_idx]["password"]):
-            print("hello")
+        email = self.user_response("Enter you Email: -> [ ")
+        auth_idx = self.login_sets[email]
+
+        if (self.user[auth_idx]["email"]) and (self.user[auth_idx]["password"]):
             return True
         else:
             print("")
             return False
 
     def create_account(self):
-        self.search_set[self.user_response("Enter your Fullname: -> [ ")] = (
-            self.count + 1
-        )
-        self.user["email"] = self.user_response("Enter you Email: -> [")
-        self.user["password"] = self.user_response("Enter strong Password: -> [")
+        _full_name = self.user_response("Enter you Fullname: -> [ ")
+        _email = self.user_response("Enter your Email: -> [ ")
+        _password = self.user_response("Enter strong Password: -> [ ")
+        self.count += 1
+        self.login_sets[_email] = self.count
+        self.user.append({"name": _full_name, "email": _email, "password": _password})
+        print(self.login_sets)
+        print(self.user)
 
     def crud_todo(self):
         user_auth = self.user_response(
