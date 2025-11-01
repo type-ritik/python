@@ -1,9 +1,10 @@
 class Todo:
     todoList = []
     user = [{"name": "Admin", "email": "admin@admin.com", "password": "1234567890A"}]
-    _login_count = 0
     login_sets = {"admin@admin.com": 0}
-    todo_sets = {}
+    todo_sets = {0, 0}
+    _todo_count = 0
+    _login_count = 0
 
     def __init__(self, todo):
         self.todoList.append(todo)
@@ -90,9 +91,13 @@ class Todo:
     def addTodo(self):
         todo = input("Enter Todo task -> [ ")
         mode = input("Enter task mode (stop, progress, completed) -> [ ")
-        self.count += 1
-
-        self.todoList.append({"id": self.count, "todo": todo, "mode": mode})
+        self._todo_count += 1
+        self.todo_sets.add(
+            self._todo_count,
+        )
+        self.todoList.append({"id": self._todo_count, "todo": todo, "mode": mode})
+        print(self.todo_sets)
+        print(self.todoList)
 
     def find_largest_string(self, todos):
         todos["todo"] = str(todos["todo"]).ljust(70)
@@ -128,7 +133,6 @@ td = Todo(
     {"id": 0, "todo": "Solve 1 leetcode problem, array : easy", "mode": "progress"}
 )
 
-
 # td.addTodo({"id": 2, "todo": "style create-post component", "mode": "progress"})
 # td.addTodo(
 #     {
@@ -145,4 +149,4 @@ td = Todo(
 # td.addTodo("Spend time on mdn-doc read about HTML API's")
 # td.addTodo("Read 10pages of Discrete mathematics book")
 
-td.showTodo()
+# td.showTodo()
